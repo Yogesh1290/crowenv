@@ -1,14 +1,14 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "crowenv"
-version = "1.0.0"
+version = "1.0.1"
 description = "CrowEnv — Smart secrets. Like a crow. 🐦‍⬛ Python loader for the .cenv encrypted secrets standard (AES-256-GCM)"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "CrowEnv Contributors" }]
+authors = [{ name = "yogesh-singh" }]
 keywords = ["env", "secrets", "encryption", "dotenv", "security", "aes-256", "crowenv", "crow"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",

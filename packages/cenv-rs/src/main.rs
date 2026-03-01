@@ -1,4 +1,4 @@
-// cenv — Rust CLI
+// CrowEnv — Rust CLI 🐦‍⬛
 // Full working implementation: encrypt, decrypt, load, verify, init, generate-key
 // Build: cargo build --release
 // Install: cargo install --path .
@@ -16,7 +16,6 @@ use sha2::Sha256;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
-use std::path::Path;
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -231,7 +230,7 @@ fn cmd_init() {
 fn cmd_generate_key() {
     let mut bytes = [0u8; 32];
     OsRng.fill_bytes(&mut bytes);
-    let key = hex::encode(bytes);
+    let key: String = bytes.iter().map(|b| format!("{:02x}", b)).collect();
     println!("\n🔑 Your new master key (256-bit random):\n\n   {}\n", key);
     println!("export {}=\"{}\"\n", MASTER_KEY_ENV, key);
 }
@@ -297,10 +296,10 @@ fn cmd_verify(cenv_file: &str) {
 fn print_help() {
     println!(
         r#"
-cenv v1.0 — Encrypted .env replacement (Rust CLI)
+crowenv v1.0 — Smart secrets. Like a crow. 🐦‍⬛ (Rust CLI)
 
 Usage:
-  cenv <command> [file]
+  crowenv <command> [file]
 
 Commands:
   init                    Initialize .gitignore
@@ -313,7 +312,8 @@ Commands:
 Environment:
   CENV_MASTER_KEY         Required master key
 
-Spec: https://github.com/cenv/cenv/blob/main/SPEC.md
+GitHub: https://github.com/Yogesh1290/crowenv
+Spec:   https://github.com/Yogesh1290/crowenv/blob/main/SPEC.md
 "#
     );
 }
