@@ -1,0 +1,35 @@
+# cenv Docker Example — use encrypted .cenv instead of plain .env
+#
+# Usage:
+#   docker build -t myapp .
+#   docker run -e CENV_MASTER_KEY="your-key" myapp
+
+FROM node:20-slim
+
+WORKDIR /app
+
+# Install cenv CLI globally
+RUN npm install -g cenv
+
+# Copy your application code
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+
+# .cenv is committed to git — it's safe to copy
+# NEVER copy .env — if it exists, it's a mistake
+COPY .cenv /app/.cenv
+
+# The master key comes from the container runtime (env var, secret mount, etc.)
+# Never hardcode it here — set via docker run -e or secrets manager below
+# ENV CENV_MASTER_KEY=""   ← set this via docker run / k8s secret / compose
+
+# Load .cenv secrets before starting your app
+CMD ["sh", "-c", "cenv load && node server.js"]
+
+# ─── Alternative: Multi-stage with key from build arg (NOT recommended) ────────
+# FROM node:20-slim as runtime
+# ARG CENV_MASTER_KEY
+# ENV CENV_MASTER_KEY=$CENV_MASTER_KEY
+# ← Only use this for non-production temp deployments

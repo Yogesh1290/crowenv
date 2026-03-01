@@ -1,0 +1,60 @@
+---
+# Kubernetes Deployment — full example with cenv integration
+# Usage: kubectl apply -f deployment.yaml
+#
+# Prerequisites:
+#   1. kubectl apply -f secret.yaml          (creates cenv-master-key secret)
+#   2. kubectl create configmap cenv-config \
+#        --from-file=.cenv=../../.cenv       (mounts the .cenv file)
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: default
+  labels:
+    app: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: myapp:latest
+          ports:
+            - containerPort: 3000
+
+          # Inject CENV_MASTER_KEY from the Kubernetes Secret
+          envFrom:
+            - secretRef:
+                name: cenv-master-key
+
+          # Mount the .cenv file from a ConfigMap
+          volumeMounts:
+            - name: cenv-volume
+              mountPath: /app/.cenv
+              subPath: .cenv
+              readOnly: true
+
+          # cenv loads secrets at startup, then app runs
+          command: ["/bin/sh", "-c"]
+          args: ["cenv load && node server.js"]
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+      volumes:
+        - name: cenv-volume
+          configMap:
+            name: cenv-config

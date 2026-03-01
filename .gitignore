@@ -1,0 +1,38 @@
+# Secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+.cenv.keys
+
+# Node.js
+node_modules/
+npm-debug.log*
+*.tgz
+*.vsix
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Go
+packages/cenv-go/cenv
+packages/cenv-go/cenv.exe
+
+# Rust
+packages/cenv-rs/target/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Test artifacts
+*.cenv.test

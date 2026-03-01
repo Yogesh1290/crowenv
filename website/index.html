@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrowEnv — Smart Secrets. Like a Crow. 🐦‍⬛ AES-256-GCM.</title>
+    <meta name="description"
+        content="CrowEnv replaces insecure plain .env files with AES-256-GCM encrypted .cenv files. Smart secrets, like a crow. Commit your secrets safely. Works with Node.js, Python, Go, Rust, Docker, and Kubernetes." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- ── Navigation ─────────────────────────────────────────────── -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">🐦‍⬛</span>
+                <span class="logo-text">CrowEnv</span>
+                <span class="logo-badge">v1.0</span>
+            </a>
+            <div class="nav-links">
+                <a href="#expose">The Problem</a>
+                <a href="#how">How It Works</a>
+                <a href="#install">Install</a>
+                <a href="#spec">Spec</a>
+                <a href="https://github.com/Yogesh1290/crowenv" class="btn-nav" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ───────────────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="bg-orb bg-orb-1"></div>
+            <div class="bg-orb bg-orb-2"></div>
+            <div class="bg-orb bg-orb-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-tag">
+                <span class="tag-dot"></span>
+                Open Standard · MIT License · Zero Dependencies
+            </div>
+            <h1 class="hero-title">
+                <span class="title-dead">.env is Dead.</span><br />
+                <span class="title-live">Enter <code>CrowEnv</code> 🐦‍⬛</span>
+            </h1>
+            <p class="hero-sub">
+                Smart secrets. Like a crow. AES-256-GCM encrypted `.cenv` files<br />
+                you can safely commit to Git — in every language.
+            </p>
+            <div class="hero-actions">
+                <a href="#install" class="btn-primary">Get Started →</a>
+                <a href="#expose" class="btn-ghost">See Why .env Is Broken</a>
+            </div>
+
+            <!-- Terminal demo -->
+            <div class="terminal-demo">
+                <div class="terminal-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">bash</span>
+                </div>
+                <pre class="terminal-body"><span class="t-comment"># Install CrowEnv</span>
+<span class="t-cmd">npm install -g crowenv</span>
+<span class="t-comment"># Generate your master key (store this in 1Password!)</span>
+<span class="t-cmd">crowenv generate-key</span>
+<span class="t-out">🔑 a3f8...c901  ← 256-bit random key</span>
+<span class="t-comment"># Encrypt your .env</span>
+<span class="t-cmd">crowenv encrypt</span>
+<span class="t-out">✅ .cenv created (5 secrets encrypted, AES-256-GCM)</span>
+<span class="t-comment"># Commit it safely</span>
+<span class="t-cmd">git add .cenv && git commit -m "Add encrypted secrets"</span>
+<span class="t-out">✅ Your secrets are now in Git — and still private.</span></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Stats ──────────────────────────────────────────────────── -->
+    <section class="stats-bar">
+        <div class="container stats-inner">
+            <div class="stat">
+                <span class="stat-num">12M+</span>
+                <span class="stat-label">exposed .env files online (2026)</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">$2.3M</span>
+                <span class="stat-label">avg. cost of a secrets breach</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">AES-256</span>
+                <span class="stat-label">military-grade encryption</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-num">0</span>
+                <span class="stat-label">runtime dependencies (Node.js)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── The Exposé ─────────────────────────────────────────────── -->
+    <section class="expose" id="expose">
+        <div class="container">
+            <div class="section-tag">⚠️ The Problem</div>
+            <h2 class="section-title">Plain .env is a Ticking Time Bomb</h2>
+            <p class="section-sub">Real attacks. Real money lost. Happening right now.</p>
+
+            <div class="loopholes">
+                <div class="loophole-card">
+                    <div class="lh-num">01</div>
+                    <div class="lh-icon">🌐</div>
+                    <h3>Public Web Exposure</h3>
+                    <p>Misconfigured Nginx/Apache serves <code>/.env</code> directly. <strong>110,000+ domains
+                            scanned</strong> in one operation. <strong>7,000+ cloud credentials</strong> stolen. Mass
+                        extortion followed.</p>
+                    <div class="lh-source">— Palo Alto Unit 42, Aug 2024</div>
+                </div>
+                <div class="loophole-card">
+                    <div class="lh-num">02</div>
+                    <div class="lh-icon">📁</div>
+                    <h3>Git History Leaks</h3>
+                    <p>One accidental <code>git add .</code> = permanent exposure. Even after deletion, secrets remain
+                        in git history. GitGuardian bots find them in seconds.</p>
+                    <div class="lh-source">— GitGuardian State of Secrets 2025</div>
+                </div>
+                <div class="loophole-card">
+                    <div class="lh-num">03</div>
+                    <div class="lh-icon">🖥️</div>
+                    <h3>Plain Text on Disk</h3>
+                    <p>Stolen laptop. Shared server. Malware. Backup systems. Docker inspect. <code>cat .env</code> =
+                        game over. Plain text has zero protection.</p>
+                </div>
+                <div class="loophole-card">
+                    <div class="lh-num">04</div>
+                    <div class="lh-icon">📋</div>
+                    <h3>Logs &amp; Crash Dumps</h3>
+                    <p><code>console.log(process.env)</code> by mistake. Crash dumps. AI coding assistants sometimes
+                        read your env vars. Side-channels everywhere.</p>
+                </div>
+                <div class="loophole-card">
+                    <div class="lh-num">05</div>
+                    <div class="lh-icon">🔧</div>
+                    <h3>Server Misconfigs</h3>
+                    <p>Laravel <code>.env</code> in public folder. One bug bounty hunter in 2025: exposed .env →
+                        PostgreSQL creds → full RCE. Happens daily.</p>
+                </div>
+                <div class="loophole-card highlight-card">
+                    <div class="lh-num">→</div>
+                    <div class="lh-icon">🚀</div>
+                    <h3>The .cenv Solution</h3>
+                    <p>Encrypted by default. Commit it. The encrypted blob is useless without your master key.
+                        <strong>Game changed.</strong></p>
+                    <a href="#install" class="btn-primary-sm">Get .cenv →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── How It Works ───────────────────────────────────────────── -->
+    <section class="how" id="how">
+        <div class="container">
+            <div class="section-tag">⚙️ How It Works</div>
+            <h2 class="section-title">Military-Grade Encryption. Simple API.</h2>
+
+            <div class="crypto-flow">
+                <div class="flow-step">
+                    <div class="flow-icon">🔑</div>
+                    <div class="flow-label">Your Master Key</div>
+                    <div class="flow-detail">256-bit random key stored in 1Password / GitHub Secrets / Vault</div>
+                </div>
+                <div class="flow-arrow">+</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🧂</div>
+                    <div class="flow-label">Random Salt</div>
+                    <div class="flow-detail">16-byte cryptographic salt generated fresh on every encrypt</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🔒</div>
+                    <div class="flow-label">PBKDF2 (600k iter)</div>
+                    <div class="flow-detail">Key derivation — brute force takes millions of years</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🛡️</div>
+                    <div class="flow-label">AES-256-GCM</div>
+                    <div class="flow-detail">Authentication + Encryption. Tamper detection built in.</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step highlight-step">
+                    <div class="flow-icon">📄</div>
+                    <div class="flow-label">.cenv</div>
+                    <div class="flow-detail">Encrypted JSON blob. Safe to commit.</div>
+                </div>
+            </div>
+
+            <!-- Format example -->
+            <div class="format-demo">
+                <div class="format-col">
+                    <div class="format-label bad-label">❌ Plain .env (hackable)</div>
+                    <pre class="code-block bad-code">DB_PASSWORD=supersecret123
+API_KEY=sk_live_abc123xyz
+JWT_SECRET=very_long_string
+STRIPE_KEY=sk_live_xxxxx</pre>
+                </div>
+                <div class="format-arrow-h">→</div>
+                <div class="format-col">
+                    <div class="format-label good-label">✅ .cenv (encrypted, git-safe)</div>
+                    <pre class="code-block good-code">{
+  "v": "1.0",
+  "s": "dGhpcyBpcyBh...",
+  "d": "aGVsbG8gd29y..."
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Install ────────────────────────────────────────────────── -->
+    <section class="install" id="install">
+        <div class="container">
+            <div class="section-tag">📦 Install</div>
+            <h2 class="section-title">One Command. Every Language.</h2>
+
+            <div class="lang-tabs">
+                <button class="lang-tab active" data-lang="node">Node.js</button>
+                <button class="lang-tab" data-lang="python">Python</button>
+                <button class="lang-tab" data-lang="go">Go</button>
+                <button class="lang-tab" data-lang="rust">Rust</button>
+                <button class="lang-tab" data-lang="docker">Docker</button>
+            </div>
+
+            <div class="lang-panels">
+
+                <div class="lang-panel active" id="panel-node">
+                    <pre class="code-block install-code"><span class="t-comment"># Install globally</span>
+npm install -g crowenv
+
+<span class="t-comment"># Or use without installing</span>
+npx crowenv encrypt
+
+<span class="t-comment"># Quick start</span>
+crowenv init
+crowenv generate-key
+echo "DB_PASS=secret" &gt; .env
+crowenv encrypt
+rm .env
+git add .cenv</pre>
+                </div>
+
+                <div class="lang-panel" id="panel-python">
+                    <pre class="code-block install-code"><span class="t-comment"># Install</span>
+pip install crowenv
+
+<span class="t-comment"># In your app</span>
+import cenv
+cenv.load()   <span class="t-comment"># loads .cenv into os.environ</span>
+
+import os
+print(os.getenv("DB_PASS"))
+
+<span class="t-comment"># CLI</span>
+python -m cenv encrypt
+python -m cenv load</pre>
+                </div>
+
+                <div class="lang-panel" id="panel-go">
+                    <pre class="code-block install-code"><span class="t-comment"># Install</span>
+go install github.com/cenv/cenv-go@latest
+
+<span class="t-comment"># Or build from source</span>
+git clone https://github.com/cenv/cenv
+cd cenv/packages/cenv-go
+go build -o cenv .
+
+<span class="t-comment"># Usage</span>
+cenv init
+cenv generate-key
+cenv encrypt
+cenv verify</pre>
+                </div>
+
+                <div class="lang-panel" id="panel-rust">
+                    <pre class="code-block install-code"><span class="t-comment"># Install</span>
+cargo install crowenv
+
+<span class="t-comment"># Or from source</span>
+cd crowenv/packages/cenv-rs
+cargo install --path .
+
+<span class="t-comment"># Usage</span>
+crowenv init
+crowenv generate-key
+crowenv encrypt
+crowenv load</pre>
+                </div>
+
+                <div class="lang-panel" id="panel-docker">
+                    <pre class="code-block install-code"><span class="t-comment"># Dockerfile</span>
+FROM node:20-slim
+RUN npm install -g crowenv
+COPY .cenv /app/.cenv
+CMD ["sh", "-c", "crowenv load &amp;&amp; node app.js"]
+
+<span class="t-comment"># Run with master key from secret manager</span>
+docker run \
+  -e CENV_MASTER_KEY="$(vault kv get -field=key secret/app)" \
+  myapp</pre>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Spec ───────────────────────────────────────────────────── -->
+    <section class="spec" id="spec">
+        <div class="container">
+            <div class="section-tag">📋 The Spec</div>
+            <h2 class="section-title">.cenv Format v1.0</h2>
+
+            <div class="spec-table-wrapper">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Encryption</td>
+                            <td>AES-256-GCM</td>
+                        </tr>
+                        <tr>
+                            <td>Key derivation</td>
+                            <td>PBKDF2-HMAC-SHA256 (600,000 iterations)</td>
+                        </tr>
+                        <tr>
+                            <td>Nonce</td>
+                            <td>12 bytes, random per encryption</td>
+                        </tr>
+                        <tr>
+                            <td>Auth tag</td>
+                            <td>16 bytes (tamper detection)</td>
+                        </tr>
+                        <tr>
+                            <td>Salt</td>
+                            <td>16 bytes, random per encryption</td>
+                        </tr>
+                        <tr>
+                            <td>File format</td>
+                            <td>JSON <code>{"v","s","d"}</code></td>
+                        </tr>
+                        <tr>
+                            <td>Git safety</td>
+                            <td>✅ Safe to commit</td>
+                        </tr>
+                        <tr>
+                            <td>Brute-force cost</td>
+                            <td>~2²⁵⁶ key guesses</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="spec-link-row">
+                <a href="https://github.com/Yogesh1290/crowenv/blob/main/SPEC.md" class="btn-ghost" target="_blank">Read
+                    Full Spec →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ────────────────────────────────────────────────────── -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-inner">
+                <div class="cta-bg-orb"></div>
+                <h2 class="cta-title">Stop the leaks. Ship .cenv today.</h2>
+                <p class="cta-sub">Join developers who chose security over convenience myths.</p>
+                <div class="cta-actions">
+                    <a href="#install" class="btn-primary btn-large">Install Now →</a>
+                    <a href="https://github.com/Yogesh1290/crowenv" class="btn-ghost btn-large" target="_blank">⭐ Star
+                        on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ─────────────────────────────────────────────────── -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">🐦‍⬛</span>
+                <span>CrowEnv</span>
+                <span class="footer-version">v1.0.0</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/Yogesh1290/crowenv" target="_blank">GitHub</a>
+                <a href="https://github.com/Yogesh1290/crowenv/blob/main/SPEC.md" target="_blank">Spec</a>
+                <a href="https://github.com/Yogesh1290/crowenv/blob/main/SECURITY.md" target="_blank">Security</a>
+                <a href="https://npmjs.com/package/crowenv" target="_blank">npm</a>
+            </div>
+            <div class="footer-copy">MIT License © 2026 CrowEnv Contributors</div>
+        </div>
+    </footer>
+
+    <script>
+        // Language tab switching
+        document.querySelectorAll('.lang-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.lang-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('panel-' + tab.dataset.lang).classList.add('active');
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.loophole-card, .flow-step, .format-col, .spec-table-wrapper').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

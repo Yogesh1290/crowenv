@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "crowenv"
+version = "1.0.0"
+description = "CrowEnv — Smart secrets. Like a crow. 🐦‍⬛ Python loader for the .cenv encrypted secrets standard (AES-256-GCM)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "CrowEnv Contributors" }]
+keywords = ["env", "secrets", "encryption", "dotenv", "security", "aes-256", "crowenv", "crow"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security :: Cryptography",
+]
+requires-python = ">=3.9"
+dependencies = ["cryptography>=42.0"]
+
+[project.urls]
+Homepage = "https://crowenv.dev"
+Repository = "https://github.com/Yogesh1290/crowenv"
+Documentation = "https://github.com/Yogesh1290/crowenv/blob/main/SPEC.md"
+
+[project.scripts]
+crowenv = "cenv.core:__main__"
+
+[tool.setuptools.packages.find]
+where = ["."]

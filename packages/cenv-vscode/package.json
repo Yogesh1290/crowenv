@@ -1,0 +1,127 @@
+{
+    "name": "crowenv",
+    "displayName": "CrowEnv — Smart Secrets 🐦‍⬛",
+    "description": "First-class VS Code support for .cenv encrypted secrets. Syntax highlighting, encrypt/decrypt commands, and security warnings for plain .env files.",
+    "version": "1.0.0",
+    "publisher": "crowenv",
+    "license": "MIT",
+    "icon": "icon.png",
+    "homepage": "https://crowenv.dev",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Yogesh1290/crowenv"
+    },
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other",
+        "Formatters",
+        "Linters"
+    ],
+    "keywords": [
+        "crowenv",
+        "cenv",
+        "crow",
+        "env",
+        "dotenv",
+        "secrets",
+        "encryption",
+        "security"
+    ],
+    "activationEvents": [
+        "workspaceContains:**/.cenv",
+        "workspaceContains:**/.env",
+        "onLanguage:cenv",
+        "onLanguage:properties"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "cenv",
+                "aliases": [
+                    "CENV",
+                    "cenv",
+                    ".cenv"
+                ],
+                "extensions": [
+                    ".cenv"
+                ],
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "light": "./icons/cenv-light.svg",
+                    "dark": "./icons/cenv-dark.svg"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "cenv",
+                "scopeName": "source.cenv",
+                "path": "./syntaxes/cenv.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "crowenv.generateKey",
+                "title": "CrowEnv: 🔑 Generate New Master Key",
+                "category": "CrowEnv"
+            },
+            {
+                "command": "crowenv.encrypt",
+                "title": "CrowEnv: 🔐 Encrypt .env → .cenv",
+                "category": "CrowEnv"
+            },
+            {
+                "command": "crowenv.decrypt",
+                "title": "CrowEnv: 🔓 Decrypt .cenv (preview in terminal)",
+                "category": "CrowEnv"
+            },
+            {
+                "command": "crowenv.verify",
+                "title": "CrowEnv: ✅ Verify .cenv integrity",
+                "category": "CrowEnv"
+            },
+            {
+                "command": "crowenv.init",
+                "title": "CrowEnv: 🚀 Initialize project (.gitignore)",
+                "category": "CrowEnv"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "resourceExtname == .env",
+                    "command": "crowenv.encrypt",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceExtname == .cenv",
+                    "command": "crowenv.decrypt",
+                    "group": "navigation"
+                },
+                {
+                    "when": "resourceExtname == .cenv",
+                    "command": "crowenv.verify",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "CrowEnv",
+            "properties": {
+                "crowenv.warnOnPlainEnv": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show security warning when .env files are detected"
+                },
+                "crowenv.autoCheckGitignore": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Warn if .env is not in .gitignore"
+                }
+            }
+        }
+    }
+}

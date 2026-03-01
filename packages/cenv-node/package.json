@@ -1,0 +1,39 @@
+{
+  "name": "crowenv",
+  "version": "1.0.0",
+  "description": "CrowEnv — Smart secrets. Like a crow. 🐦‍⬛ AES-256-GCM encrypted .cenv files that replace insecure plain .env",
+  "keywords": [
+    "env",
+    "secrets",
+    "encryption",
+    "dotenv",
+    "security",
+    "aes-256",
+    "cenv",
+    "crowenv",
+    "crow"
+  ],
+  "homepage": "https://crowenv.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yogesh1290/crowenv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yogesh1290/crowenv/issues"
+  },
+  "license": "MIT",
+  "author": "CrowEnv Contributors",
+  "bin": {
+    "crowenv": "index.js"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test/test.js",
+    "prepublishOnly": "node test/test.js"
+  }
+}
