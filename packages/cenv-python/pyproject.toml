@@ -30,7 +30,7 @@ Repository = "https://github.com/Yogesh1290/crowenv"
 Documentation = "https://github.com/Yogesh1290/crowenv/blob/main/SPEC.md"
 
 [project.scripts]
-crowenv = "cenv.core:__main__"
+crowenv = "cenv.core:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
