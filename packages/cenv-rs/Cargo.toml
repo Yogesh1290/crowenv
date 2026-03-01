@@ -1,9 +1,10 @@
 [package]
 name = "crowenv"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "CrowEnv — Smart secrets. Like a crow. 🐦 AES-256-GCM encrypted .cenv replacement for plain .env files"
 license = "MIT"
+readme = "README.md"
 repository = "https://github.com/Yogesh1290/crowenv"
 keywords = ["env", "secrets", "encryption", "security", "crowenv"]
 categories = ["command-line-utilities", "cryptography"]
