@@ -22,7 +22,7 @@
     "url": "https://github.com/Yogesh1290/crowenv/issues"
   },
   "license": "MIT",
-  "author": "CrowEnv Contributors",
+  "author": "yogeshsingh",
   "bin": {
     "crowenv": "index.js"
   },
