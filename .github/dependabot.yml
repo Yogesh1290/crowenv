@@ -1,13 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/website"
-    schedule:
-      interval: "weekly"
-    labels:
-      - "dependencies"
-
-  - package-ecosystem: "npm"
     directory: "/packages/cenv-vscode"
     schedule:
       interval: "weekly"
